@@ -1,35 +1,34 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from "react";
+import reactLogo from "./assets/react.svg";
+import viteLogo from "/vite.svg";
+import "./App.css";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const API_KEY = import.meta.env.VITE_API_KEY;
+  console.log(API_KEY);
+
+  const options = {
+    method: "GET",
+    headers: {
+      accept: "application/json",
+      Authorization:
+        "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJhM2FlOGVjY2NmOTM5YWQwMWMwN2I1MWM4NTgyZTkwNyIsIm5iZiI6MTcyODM3NTcyMC4yMzAwNzcsInN1YiI6IjY3MDRlODNiMzIyZDNlYTgzMTFkNDQwNCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.CkHu5X6E6aG_0P2lAAhTdBpkWDSpkIXzohIC9Rzj6-8",
+    },
+  };
+
+  fetch(
+    `https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}`,
+    options
+  )
+    .then((response) => response.json())
+    .then((response) => console.log(response))
+    .catch((err) => console.error(err));
 
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <div>I am container</div>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
